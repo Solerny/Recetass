@@ -1,26 +1,50 @@
 package com.example.recetas;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.recetas.Adapters.RandomRecipeAdapter;
+import com.example.recetas.Listeners.RandomRecipeResponseListener;
+import com.example.recetas.Models.RandomRecipeApiResponse;
 
 public class MainActivity extends AppCompatActivity {
+    ProgressDialog dialog;
+    RequestManager manager;
+    RandomRecipeAdapter randomRecipeAdapter;
+    RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        enableEdgeToEdge();
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            WindowInsetsCompat.Type.systemBars();
-            WindowInsetsCompat.Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        dialog = new ProgressDialog(this);
+        dialog.setTitle("Loading...");
+        manager = new RequestManager(this);
+        manager.getCallRandomRecipies(randomRecipeResponseListener);
+        dialog.show();
     }
 
-    private void enableEdgeToEdge() {
-        // Implementation of enableEdgeToEdge() method
-    }
+    private final RandomRecipeResponseListener randomRecipeResponseListener = new RandomRecipeResponseListener() {
+        @Override
+        public void didFetch(RandomRecipeApiResponse response, String message) {
+            recyclerView = findViewById(R.id.recycler_random);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 1));
+            randomRecipeAdapter = new RandomRecipeAdapter(MainActivity.this, response.recipes);
+            recyclerView.setAdapter(randomRecipeAdapter);
+        }
+
+        @Override
+        public void didError(String message) {
+            Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+        }
+    };
 }
-
