@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Recetas</string>
+    //cambiar por pendejo
+    <string name="api_key">c966d8e9826a4f5083828b36924d9558</string>
+</resources>
