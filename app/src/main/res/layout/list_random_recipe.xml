@@ -22,7 +22,10 @@
             android:textSize="22sp"
             android:padding="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_width=""
+            android:layout_height=""
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
