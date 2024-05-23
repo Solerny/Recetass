@@ -85,7 +85,7 @@
                     android:id="@+id/textView_time"
                     android:textSize="14sp"
                     android:padding="8dp"
-                    android:text="40 Minutos"
+                    android:text="2 Minutos"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
