@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         dialog = new ProgressDialog(this);
-        dialog.setTitle("Loading...");
+        dialog.setTitle("Cargando...");
 
         manager = new RequestManager(this);
         manager.getCallRandomRecipies(randomRecipeResponseListener);
